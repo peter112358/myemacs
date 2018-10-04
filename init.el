@@ -17,28 +17,36 @@
 (doom-themes-treemacs-config)
 (doom-themes-org-config)
 
+(require 'better-defaults)
+(require 'pallet)
+(pallet-mode t)
+
+(use-package dumb-jump
+  :bind (("M-g o" . dumb-jump-go-other-window)
+         ("M-g j" . dumb-jump-go)
+         ("M-g i" . dumb-jump-go-prompt)
+         ("M-g x" . dumb-jump-go-prefer-external)
+         ("M-g z" . dumb-jump-go-prefer-external-other-window))
+  :config (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
+  :ensure)
+
 (use-package doom-modeline
       :ensure t
       :defer t
       :hook (after-init . doom-modeline-init))
+
+(use-package indent-guide
+      :ensure t
+      :hook (after-init . indent-guide-global-mode))
+
+(require 'which-key)
+(which-key-mode)
 
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle)
 
 (setq neo-smart-open t)
 (setq projectile-switch-project-action 'neotree-projectile-action)
-
-(defun neotree-project-dir ()
-    "Open NeoTree using the git root."
-    (interactive)
-    (let ((project-dir (ffip-project-root))
-          (file-name (buffer-file-name)))
-      (if project-dir
-          (progn
-            (neotree-dir project-dir)
-            (neotree-find file-name))
-        (message "Could not find git project root."))))
-
 
 (defun neotree-projectile-dir ()
     "Open NeoTree using the git root."
@@ -53,6 +61,18 @@
                 (neotree-find file-name)))
         (message "Could not find git project root."))))
 (global-set-key [f9] 'neotree-projectile-dir)
+(add-hook 'neotree-mode-hook
+              (lambda ()
+                (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+                (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-quick-look)
+                (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+                (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
+                (define-key evil-normal-state-local-map (kbd "g") 'neotree-refresh)
+                (define-key evil-normal-state-local-map (kbd "n") 'neotree-next-line)
+                (define-key evil-normal-state-local-map (kbd "p") 'neotree-previous-line)
+                (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
+                (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle)))
+
 
 (global-company-mode t)
 
@@ -70,21 +90,30 @@
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 
+(setq multi-term-program "/usr/local/bin/zsh")
+
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
 (evil-mode t)
 (global-evil-leader-mode)
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
   "SPC" 'counsel-M-x
   "fed" (lambda () (interactive) (find-file "~/.emacs.d/init.el"))
-  "ff" 'find-file
+  "ff" 'counsel-find-file
   "dd" 'neotree-toggle
   "bk" 'kill-buffer
   "gs" 'magit-status
   "bl" 'counsel-ibuffer
   "fs" 'swiper
-  "ps" 'counsel-ag 
+  "jj" 'dumb-jump-go
+  "jb" 'dumb-jump-back
+  "ps" 'counsel-ag
   "pf" 'counsel-git)
 
 
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "C-s") 'swiper)

@@ -35,4 +35,11 @@
 (depends-on "swiper")
 (depends-on "counsel")
 (depends-on "company")
-(depends-on "diredx")
+(depends-on "which-key")
+(depends-on "meghanada")
+(depends-on "indent-guide")
+(depends-on "anzu")
+(depends-on "dumb-jump")
+(depends-on "multi-term")
+(depends-on "better-defaults")
+
