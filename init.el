@@ -72,7 +72,7 @@
                 (define-key evil-normal-state-local-map (kbd "p") 'neotree-previous-line)
                 (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
                 (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle)))
-
+(setq neo-window-fixed-size nil)
 
 (global-company-mode t)
 
