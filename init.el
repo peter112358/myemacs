@@ -3,7 +3,10 @@
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-
+(menu-bar-mode -1)
+(setq make-backup-files nil) ; stop creating backup~ files
+(setq auto-save-default nil) ; stop creating #autosave# files
+(setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 
 (require 'doom-themes)
 (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
@@ -64,6 +67,9 @@
 ;;美化lambda
 (prettify-symbols-mode)
 
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
 (evil-mode t)
 (global-evil-leader-mode)
 (evil-leader/set-leader "<SPC>")
@@ -74,6 +80,9 @@
   "dd" 'neotree-toggle
   "bk" 'kill-buffer
   "gs" 'magit-status
+  "bl" 'counsel-ibuffer
+  "fs" 'swiper
+  "ps" 'counsel-ag 
   "pf" 'counsel-git)
 
 
