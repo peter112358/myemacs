@@ -39,6 +39,8 @@
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 
+(add-hook 'shell-mode-hook (lambda () (company-mode -1)))
+
 (use-package better-defaults)
 
 (use-package pallet
