@@ -46,6 +46,14 @@
 
 (add-hook 'shell-mode-hook (lambda () (company-mode -1)))
 
+(use-package auctex-latexmk
+  :config
+  (auctex-latexmk-setup))
+
+(use-package company-auctex
+  :config
+  (company-auctex-init))
+
 (use-package better-defaults)
 
 (use-package pallet

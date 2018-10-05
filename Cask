@@ -44,3 +44,5 @@
 (depends-on "better-defaults")
 (depends-on "smart-tabs-mode")
 (depends-on "auctex")
+(depends-on "company-auctex")
+(depends-on "auctex-latexmk")
