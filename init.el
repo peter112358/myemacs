@@ -138,7 +138,7 @@
     "pf" 'counsel-git))
 
 ;;---------------------------- keymap ------------------------------------------
-(global-set-key [f9] 'neotree-projectile-dir)
+(global-set-key [f8] 'neotree-projectile-dir)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "C-s") 'swiper)
@@ -150,7 +150,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(neo-window-width 40))
+ '(neo-window-width 32))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
