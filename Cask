@@ -39,7 +39,9 @@
 (depends-on "meghanada")
 (depends-on "indent-guide")
 (depends-on "anzu")
+(depends-on "evil-anzu")
 (depends-on "dumb-jump")
 (depends-on "multi-term")
 (depends-on "better-defaults")
+(depends-on "smart-tabs-mode")
 

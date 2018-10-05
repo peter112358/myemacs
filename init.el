@@ -1,13 +1,25 @@
+
+
+;;---------------------------- package ------------------------------------------
 (require 'cask "/usr/local/share/emacs/site-lisp/cask/cask.el")
 (cask-initialize)
 
+;;---------------------------- UI ------------------------------------------
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
+(global-hl-line-mode)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;;---------------------------- custom ------------------------------------------
+(setq inhibit-startup-screen t)
 (setq make-backup-files nil) ; stop creating backup~ files
 (setq auto-save-default nil) ; stop creating #autosave# files
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
 
+;;---------------------------- theme ------------------------------------------
 (require 'doom-themes)
 (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
       doom-themes-enable-italic t) ; if nil, italics is universally disabled
@@ -17,6 +29,7 @@
 (doom-themes-treemacs-config)
 (doom-themes-org-config)
 
+;;---------------------------- mode ------------------------------------------
 (require 'better-defaults)
 (require 'pallet)
 (pallet-mode t)
@@ -60,7 +73,6 @@
                 (neotree-dir project-dir)
                 (neotree-find file-name)))
         (message "Could not find git project root."))))
-(global-set-key [f9] 'neotree-projectile-dir)
 (add-hook 'neotree-mode-hook
               (lambda ()
                 (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
@@ -96,6 +108,8 @@
   :ensure t
   :init (global-flycheck-mode))
 
+(global-anzu-mode +1)
+
 (evil-mode t)
 (global-evil-leader-mode)
 (evil-leader/set-leader "<SPC>")
@@ -107,13 +121,33 @@
   "bk" 'kill-buffer
   "gs" 'magit-status
   "bl" 'counsel-ibuffer
+  "qr," 'anzu-query-replace
+  "qr." 'anzu-query-replace-at-cursor
   "fs" 'swiper
   "jj" 'dumb-jump-go
   "jb" 'dumb-jump-back
+  "po" 'projectile-switch-open-project
   "ps" 'counsel-ag
   "pf" 'counsel-git)
 
 
+;;---------------------------- keymap ------------------------------------------
+(global-set-key [f9] 'neotree-projectile-dir)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "C-s") 'swiper)
+
+
+;;---------------------------- custom ------------------------------------------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(neo-window-width 40))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
