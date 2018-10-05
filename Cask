@@ -43,4 +43,4 @@
 (depends-on "multi-term")
 (depends-on "better-defaults")
 (depends-on "smart-tabs-mode")
-
+(depends-on "auctex")

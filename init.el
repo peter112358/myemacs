@@ -23,6 +23,11 @@
 ;;美化lambda
 (global-prettify-symbols-mode t)
 
+;;auctex
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+
 ;;---------------------------- theme ------------------------------------------
 (use-package doom-themes
   :init
