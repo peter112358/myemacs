@@ -1,5 +1,4 @@
 
-
 ;;---------------------------- package ------------------------------------------
 (require 'cask "/usr/local/share/emacs/site-lisp/cask/cask.el")
 (cask-initialize)
@@ -9,6 +8,7 @@
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 (global-hl-line-mode)
+(global-linum-mode)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;;---------------------------- custom ------------------------------------------
@@ -18,21 +18,32 @@
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
+;;未选中的窗口不显示光标
+(setq-default cursor-in-non-selected-windows nil)
+;;美化lambda
+(global-prettify-symbols-mode t)
 
 ;;---------------------------- theme ------------------------------------------
-(require 'doom-themes)
-(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-      doom-themes-enable-italic t) ; if nil, italics is universally disabled
-(load-theme 'doom-one t)
-(doom-themes-visual-bell-config)
-(doom-themes-neotree-config)
-(doom-themes-treemacs-config)
-(doom-themes-org-config)
+(use-package doom-themes
+  :init
+  (setq doom-themes-enable-bold t
+      doom-themes-enable-italic t)
+  :config
+  (load-theme 'doom-one t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-neotree-config)
+  (doom-themes-org-config)
+ )
 
 ;;---------------------------- mode ------------------------------------------
-(require 'better-defaults)
-(require 'pallet)
-(pallet-mode t)
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+(use-package better-defaults)
+
+(use-package pallet
+  :config
+  (pallet-mode t))
 
 (use-package dumb-jump
   :bind (("M-g o" . dumb-jump-go-other-window)
@@ -52,14 +63,28 @@
       :ensure t
       :hook (after-init . indent-guide-global-mode))
 
-(require 'which-key)
-(which-key-mode)
+(use-package which-key
+  :config
+  (which-key-mode))
 
-(require 'neotree)
-(global-set-key [f8] 'neotree-toggle)
-
-(setq neo-smart-open t)
-(setq projectile-switch-project-action 'neotree-projectile-action)
+(use-package neotree
+  :init
+  (setq neo-smart-open t)
+  (setq projectile-switch-project-action 'neotree-projectile-action)
+  (setq neo-window-fixed-size nil)
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  :config
+  (add-hook 'neotree-mode-hook
+          (lambda ()
+            (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+            (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-quick-look)
+            (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+            (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
+            (define-key evil-normal-state-local-map (kbd "g") 'neotree-refresh)
+            (define-key evil-normal-state-local-map (kbd "n") 'neotree-next-line)
+            (define-key evil-normal-state-local-map (kbd "p") 'neotree-previous-line)
+            (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
+            (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle))))
 
 (defun neotree-projectile-dir ()
     "Open NeoTree using the git root."
@@ -73,63 +98,49 @@
                 (neotree-dir project-dir)
                 (neotree-find file-name)))
         (message "Could not find git project root."))))
-(add-hook 'neotree-mode-hook
-              (lambda ()
-                (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
-                (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-quick-look)
-                (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
-                (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
-                (define-key evil-normal-state-local-map (kbd "g") 'neotree-refresh)
-                (define-key evil-normal-state-local-map (kbd "n") 'neotree-next-line)
-                (define-key evil-normal-state-local-map (kbd "p") 'neotree-previous-line)
-                (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
-                (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle)))
-(setq neo-window-fixed-size nil)
+
+
+;; removes line numbers from neotree, still need to remove from home
+(add-hook 'neo-after-create-hook (lambda (_unused) (linum-mode -1)))
 
 (global-company-mode t)
 
-;; removes line numbers from neotree, still need to remove from home
-(global-linum-mode)
-(add-hook 'neo-after-create-hook (lambda (_unused) (linum-mode -1)))
-
-
-;;未选中的窗口不显示光标
-(setq-default cursor-in-non-selected-windows nil)
-
-;;美化lambda
-(prettify-symbols-mode)
-
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-
-(setq multi-term-program "/usr/local/bin/zsh")
+(use-package multi-term
+  :init
+  (setq multi-term-program "/usr/local/bin/zsh"))
 
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
 
-(global-anzu-mode +1)
+(use-package anzu
+  :config
+  (global-anzu-mode +1))
 
-(evil-mode t)
-(global-evil-leader-mode)
-(evil-leader/set-leader "<SPC>")
-(evil-leader/set-key
-  "SPC" 'counsel-M-x
-  "fed" (lambda () (interactive) (find-file "~/.emacs.d/init.el"))
-  "ff" 'counsel-find-file
-  "dd" 'neotree-toggle
-  "bk" 'kill-buffer
-  "gs" 'magit-status
-  "bl" 'counsel-ibuffer
-  "qr," 'anzu-query-replace
-  "qr." 'anzu-query-replace-at-cursor
-  "fs" 'swiper
-  "jj" 'dumb-jump-go
-  "jb" 'dumb-jump-back
-  "po" 'projectile-switch-open-project
-  "ps" 'counsel-ag
-  "pf" 'counsel-git)
+(use-package evil
+  :config
+  (evil-mode t))
 
+(use-package evil-leader
+  :config
+  (global-evil-leader-mode)
+  (evil-leader/set-leader "<SPC>")
+  (evil-leader/set-key
+    "SPC" 'counsel-M-x
+    "fed" (lambda () (interactive) (find-file "~/.emacs.d/init.el"))
+    "ff" 'counsel-find-file
+    "dd" 'neotree-toggle
+    "bk" 'kill-buffer
+    "gs" 'magit-status
+    "bl" 'counsel-ibuffer
+    "qr," 'anzu-query-replace
+    "qr." 'anzu-query-replace-at-cursor
+    "fs" 'swiper
+    "jj" 'dumb-jump-go
+    "jb" 'dumb-jump-back
+    "po" 'projectile-switch-open-project
+    "ps" 'counsel-ag
+    "pf" 'counsel-git))
 
 ;;---------------------------- keymap ------------------------------------------
 (global-set-key [f9] 'neotree-projectile-dir)
