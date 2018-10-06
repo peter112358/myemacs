@@ -1,12 +1,5 @@
 
 ;;---------------------------- package ------------------------------------------
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-(package-initialize)
-
 (require 'cask "/usr/local/share/emacs/site-lisp/cask/cask.el")
 (cask-initialize)
 
@@ -29,6 +22,7 @@
 (setq-default cursor-in-non-selected-windows nil)
 ;;美化lambda
 (global-prettify-symbols-mode t)
+(setq initial-major-mode (quote text-mode))
 
 ;;auctex
 (setq TeX-auto-save t)
@@ -56,6 +50,8 @@
 (eval-after-load 'flycheck
   '(add-hook 'flycheck-mode-hook #'flycheck-cask-setup))
 
+(add-hook 'java-mode-hook
+          (lambda () (setq-local tab-width 2)))
 
 (use-package dashboard
   :ensure t
@@ -207,6 +203,16 @@
   :config
   (symon-mode))
 
+
+(defun new-empty-buffer ()
+  (interactive)
+  (let (($buf (generate-new-buffer "untitled")))
+    (switch-to-buffer $buf)
+    (funcall initial-major-mode)
+    (setq buffer-offer-save t)
+    $buf))
+
+
 (use-package evil
   :ensure t
   :init
@@ -229,8 +235,8 @@
     "SPC" 'counsel-M-x
     "fed" (lambda () (interactive) (find-file "~/.emacs.d/init.el"))
     "ff" 'counsel-find-file
-    "dd" 'neotree-toggle
-    "bk" 'kill-buffer
+    "fn" 'new-empty-buffer
+    "bk" 'kill-current-buffer
     "gs" 'magit-status
     "bl" 'counsel-ibuffer
     "qr," 'anzu-query-replace
@@ -240,6 +246,7 @@
     "jb" 'dumb-jump-back
     "po" 'projectile-switch-open-project
     "ps" 'counsel-ag
+    "pd" 'neotree-projectile-dir
     "pf" 'counsel-git))
 
 ;;---------------------------- keymap ------------------------------------------
