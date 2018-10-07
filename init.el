@@ -278,5 +278,6 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; deamon
-(server-start)
+
+;;(add-to-list 'load-path "~/.emacs.d/emacs-application-framework")
+;;(require 'eaf)
