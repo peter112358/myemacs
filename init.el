@@ -3,6 +3,8 @@
 (require 'cask "/usr/local/share/emacs/site-lisp/cask/cask.el")
 (cask-initialize)
 
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp/awesome-tab/"))
+
 ;;---------------------------- UI ------------------------------------------
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -57,7 +59,7 @@
   :ensure t
   :init
   (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
-  (setq dashboard-startup-banner ".emacs.d/.cask/26.1/elpa/dashboard-20180902.1848/banners/3.txt") ;;"path/to/your/image.png"
+  (setq dashboard-startup-banner 3);;"path/to/your/image.png"
   (setq dashboard-items '((recents  . 5)
                         (bookmarks . 5)
                         (projects . 5)
@@ -165,6 +167,10 @@
         (message "Could not find git project root."))))
 
 
+;;(use-package awesome-tab
+;;  :config
+;;  (awesome-tab-mode t))
+
 ;; removes line numbers from neotree, still need to remove from home
 (add-hook 'neo-after-create-hook (lambda (_unused) (linum-mode -1)))
 
@@ -264,7 +270,10 @@
     "po" 'projectile-switch-open-project
     "ps" 'counsel-ag
     "pd" 'neotree-projectile-dir
-    "pf" 'counsel-git))
+    "pf" 'counsel-git
+    "bms" 'bookmark-set
+    "bml" 'bookmark-bmenu-list
+    ))
 
 ;;---------------------------- keymap ------------------------------------------
 (global-set-key [f8] 'neotree-projectile-dir)
