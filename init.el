@@ -121,6 +121,17 @@
   :config
   (which-key-mode))
 
+;;(use-package meghanada
+;;  :config
+;;  (add-hook 'java-mode-hook
+;;          (lambda ()
+;;            ;; meghanada-mode on
+;;            (meghanada-mode t)
+;;            (flycheck-mode +1)
+;;            (setq c-basic-offset 2)
+;;            ;; use code format
+;;            (add-hook 'before-save-hook 'meghanada-code-beautify-before-save))))
+
 (use-package neotree
   :init
   (setq neo-smart-open t)
@@ -198,10 +209,10 @@
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
-(use-package symon
-  :ensure t
-  :config
-  (symon-mode))
+;;(use-package symon
+;;  :ensure t
+;;  :config
+;;  (symon-mode))
 
 (use-package markdown-mode
   :ensure t

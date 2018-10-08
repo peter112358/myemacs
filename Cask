@@ -64,3 +64,6 @@
 (depends-on "symon")
 (depends-on "latex-preview-pane")
 (depends-on "markdown-mode")
+(depends-on "java-snippets")
+(depends-on "go-snippets")
+(depends-on "meghanada")
