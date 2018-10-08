@@ -57,7 +57,7 @@
   :ensure t
   :init
   (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
-  ;;(setq dashboard-startup-banner [VALUE]) ;;"path/to/your/image.png"
+  (setq dashboard-startup-banner ".emacs.d/.cask/26.1/elpa/dashboard-20180902.1848/banners/3.txt") ;;"path/to/your/image.png"
   (setq dashboard-items '((recents  . 5)
                         (bookmarks . 5)
                         (projects . 5)
@@ -277,7 +277,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-
-;;(add-to-list 'load-path "~/.emacs.d/emacs-application-framework")
-;;(require 'eaf)
