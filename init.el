@@ -169,11 +169,6 @@
                 (neotree-find file-name)))
         (message "Could not find git project root."))))
 
-
-;;(use-package awesome-tab
-;;  :config
-;;  (awesome-tab-mode t))
-
 ;; removes line numbers from neotree, still need to remove from home
 (add-hook 'neo-after-create-hook (lambda (_unused) (linum-mode -1)))
 
