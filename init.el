@@ -49,6 +49,9 @@
 
 (add-hook 'shell-mode-hook (lambda () (company-mode -1)))
 
+(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+(add-hook 'dired-mode-hook 'dired-collapse-mode)
+
 (eval-after-load 'flycheck
   '(add-hook 'flycheck-mode-hook #'flycheck-cask-setup))
 
@@ -123,17 +126,6 @@
   :config
   (which-key-mode))
 
-;;(use-package meghanada
-;;  :config
-;;  (add-hook 'java-mode-hook
-;;          (lambda ()
-;;            ;; meghanada-mode on
-;;            (meghanada-mode t)
-;;            (flycheck-mode +1)
-;;            (setq c-basic-offset 2)
-;;            ;; use code format
-;;            (add-hook 'before-save-hook 'meghanada-code-beautify-before-save))))
-
 (use-package neotree
   :init
   (setq neo-smart-open t)
@@ -190,25 +182,6 @@
 
 (use-package dired-rainbow
   :ensure t)
-
-(use-package meghanada
-  :ensure t
-  :config
-  (add-hook 'java-mode-hook
-          (lambda ()
-            ;; meghanada-mode on
-            (meghanada-mode t)
-            (flycheck-mode +1)
-            (setq c-basic-offset 2)
-            ;; use code format
-            (add-hook 'before-save-hook 'meghanada-code-beautify-before-save)))
-  (cond
-   ((eq system-type 'windows-nt)
-    (setq meghanada-java-path (expand-file-name "bin/java.exe" (getenv "JAVA_HOME")))
-    (setq meghanada-maven-path "mvn.cmd"))
-   (t
-    (setq meghanada-java-path "java")
-    (setq meghanada-maven-path "mvn"))))
 
 (use-package org-bullets
   :ensure t
@@ -288,8 +261,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(company-idle-delay 0.01)
  '(neo-window-width 32)
- '(company-idle-delay 0.01))
+ '(package-selected-packages
+   (quote
+    (dired-narrow dired-sidebar dired-collapse all-the-icons-dired 2048-game which-key web-mode use-package treemacs toc-org symon sublimity smartparens smart-tabs-mode prodigy popwin paredit pallet org-download org-cliplink org-bullets nyan-mode neotree multiple-cursors multi-term meghanada markdown-mode magit latex-preview-pane java-snippets indent-guide idle-highlight-mode htmlize helm go-snippets flycheck-cask expand-region exec-path-from-shell evil-leader evil-collection evil-anzu emmet-mode dumb-jump drag-stuff doom-themes doom-modeline dired-rainbow dashboard counsel company-emacs-eclim company-auctex better-defaults auctex-latexmk))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
