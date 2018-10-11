@@ -4,6 +4,7 @@
 (cask-initialize)
 
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp/awesome-tab/"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/github/company-english-helper/"))
 
 ;;---------------------------- UI ------------------------------------------
 (tool-bar-mode -1)
@@ -31,6 +32,7 @@
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
 
+(setq company-english-helper-fuzz-search-p t)
 ;;---------------------------- theme ------------------------------------------
 (use-package doom-themes
   :init
@@ -51,6 +53,8 @@
 
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 (add-hook 'dired-mode-hook 'dired-collapse-mode)
+
+(require 'company-english-helper)
 
 (eval-after-load 'flycheck
   '(add-hook 'flycheck-mode-hook #'flycheck-cask-setup))
@@ -223,11 +227,11 @@
   :config
   (evil-mode t))
 
-(use-package evil-collection
-  :after evil
-  :ensure t
-  :config
-  (evil-collection-init))
+;;(use-package evil-collection
+;;  :after evil
+;;  :ensure t
+;;  :config
+;;  (evil-collection-init))
 
 (use-package evil-leader
   :config
@@ -246,11 +250,12 @@
     "fs" 'swiper
     "jj" 'dumb-jump-go
     "jb" 'dumb-jump-back
-    "po" 'projectile-switch-open-project
+    "pp" 'projectile-switch-project
     "ps" 'counsel-ag
     "pd" 'neotree-projectile-dir
     "pf" 'counsel-git
     "bms" 'bookmark-set
+    "aeh" 'toggle-company-english-helper
     "bml" 'bookmark-bmenu-list
     ))
 
@@ -268,7 +273,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-idle-delay 0.01)
- '(neo-window-width 32)
+ ;;'(neo-window-width 32)
  '(package-selected-packages
    (quote
     (dired-narrow dired-sidebar dired-collapse all-the-icons-dired 2048-game which-key web-mode use-package treemacs toc-org symon sublimity smartparens smart-tabs-mode prodigy popwin paredit pallet org-download org-cliplink org-bullets nyan-mode neotree multiple-cursors multi-term meghanada markdown-mode magit latex-preview-pane java-snippets indent-guide idle-highlight-mode htmlize helm go-snippets flycheck-cask expand-region exec-path-from-shell evil-leader evil-collection evil-anzu emmet-mode dumb-jump drag-stuff doom-themes doom-modeline dired-rainbow dashboard counsel company-emacs-eclim company-auctex better-defaults auctex-latexmk))))
