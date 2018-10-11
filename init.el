@@ -4,6 +4,7 @@
 (cask-initialize)
 
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp/awesome-tab/"))
+;;github: https://github.com/peter112358/company-english-helper
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/github/company-english-helper/"))
 
 ;;---------------------------- UI ------------------------------------------
@@ -26,6 +27,14 @@
 ;;美化lambda
 (global-prettify-symbols-mode t)
 (setq initial-major-mode (quote text-mode))
+
+;; brew install terminal-notifier
+(defun notify-osx (title message)
+	(call-process "/usr/local/bin/terminal-notifier"
+		nil 0 nil
+        "-group" "emacs"
+        "-title" title
+		"-message" message))
 
 ;;auctex
 (setq TeX-auto-save t)
