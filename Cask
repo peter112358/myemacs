@@ -53,6 +53,7 @@
 (depends-on "org-bullets")
 (depends-on "org-cliplink")
 (depends-on "org-download")
+(depends-on "org-pomodoro")
 (depends-on "pallet")
 (depends-on "paredit")
 (depends-on "popwin")

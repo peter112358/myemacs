@@ -282,10 +282,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-idle-delay 0.01)
- ;;'(neo-window-width 32)
  '(package-selected-packages
    (quote
-    (dired-narrow dired-sidebar dired-collapse all-the-icons-dired 2048-game which-key web-mode use-package treemacs toc-org symon sublimity smartparens smart-tabs-mode prodigy popwin paredit pallet org-download org-cliplink org-bullets nyan-mode neotree multiple-cursors multi-term meghanada markdown-mode magit latex-preview-pane java-snippets indent-guide idle-highlight-mode htmlize helm go-snippets flycheck-cask expand-region exec-path-from-shell evil-leader evil-collection evil-anzu emmet-mode dumb-jump drag-stuff doom-themes doom-modeline dired-rainbow dashboard counsel company-emacs-eclim company-auctex better-defaults auctex-latexmk))))
+    (org-pomodoro dired-narrow dired-sidebar dired-collapse all-the-icons-dired 2048-game which-key web-mode use-package treemacs toc-org symon sublimity smartparens smart-tabs-mode prodigy popwin paredit pallet org-download org-cliplink org-bullets nyan-mode neotree multiple-cursors multi-term meghanada markdown-mode magit latex-preview-pane java-snippets indent-guide idle-highlight-mode htmlize helm go-snippets flycheck-cask expand-region exec-path-from-shell evil-leader evil-collection evil-anzu emmet-mode dumb-jump drag-stuff doom-themes doom-modeline dired-rainbow dashboard counsel company-emacs-eclim company-auctex better-defaults auctex-latexmk))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
