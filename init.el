@@ -10,7 +10,10 @@
 ;;---------------------------- UI ------------------------------------------
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(menu-bar-mode -1)
+
+(when (not (display-graphic-p))
+  (menu-bar-mode -1))
+
 (global-hl-line-mode)
 (global-linum-mode)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -62,6 +65,26 @@
 
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 (add-hook 'dired-mode-hook 'dired-collapse-mode)
+
+(use-package calfw
+  :ensure t)
+
+;;(global-git-gutter-mode +1)
+
+;;(use-package org-brain :ensure t
+;;  :init
+;;  (setq org-brain-path "directory/path/where-i-want-org-brain")
+;;  ;; For Evil users
+;;  (with-eval-after-load 'evil
+;;    (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
+;;  :config
+;;  (setq org-id-track-globally t)
+;;  (setq org-id-locations-file "~/.emacs.d/.org-id-locations")
+;;  (push '("b" "Brain" plain (function org-brain-goto-end)
+;;          "* %i%?" :empty-lines 1)
+;;        org-capture-templates)
+;;  (setq org-brain-visualize-default-choices 'all)
+;;  (setq org-brain-title-max-length 12))
 
 (require 'company-english-helper)
 
@@ -236,11 +259,11 @@
   :config
   (evil-mode t))
 
-;;(use-package evil-collection
-;;  :after evil
-;;  :ensure t
-;;  :config
-;;  (evil-collection-init))
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
 
 (use-package evil-leader
   :config
@@ -282,9 +305,12 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-idle-delay 0.01)
+ '(custom-safe-themes
+   (quote
+    ("d2e9c7e31e574bf38f4b0fb927aaff20c1e5f92f72001102758005e53d77b8c9" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
  '(package-selected-packages
    (quote
-    (org-pomodoro dired-narrow dired-sidebar dired-collapse all-the-icons-dired 2048-game which-key web-mode use-package treemacs toc-org symon sublimity smartparens smart-tabs-mode prodigy popwin paredit pallet org-download org-cliplink org-bullets nyan-mode neotree multiple-cursors multi-term meghanada markdown-mode magit latex-preview-pane java-snippets indent-guide idle-highlight-mode htmlize helm go-snippets flycheck-cask expand-region exec-path-from-shell evil-leader evil-collection evil-anzu emmet-mode dumb-jump drag-stuff doom-themes doom-modeline dired-rainbow dashboard counsel company-emacs-eclim company-auctex better-defaults auctex-latexmk))))
+    (async-await ggtags calfw git-gutter org-brain solarized-theme hide-mode-line org-pomodoro dired-narrow dired-sidebar dired-collapse all-the-icons-dired 2048-game which-key web-mode use-package treemacs toc-org symon sublimity smartparens smart-tabs-mode prodigy popwin paredit pallet org-download org-cliplink org-bullets nyan-mode neotree multiple-cursors multi-term meghanada markdown-mode magit latex-preview-pane java-snippets indent-guide idle-highlight-mode htmlize helm go-snippets flycheck-cask expand-region exec-path-from-shell evil-leader evil-collection evil-anzu emmet-mode dumb-jump drag-stuff doom-themes doom-modeline dired-rainbow dashboard counsel company-emacs-eclim company-auctex better-defaults auctex-latexmk))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
