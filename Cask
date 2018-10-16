@@ -28,6 +28,7 @@
 (depends-on "dumb-jump")
 (depends-on "eclim")
 (depends-on "emmet-mode")
+(depends-on "emojify")
 (depends-on "evil")
 (depends-on "evil-anzu")
 (depends-on "evil-collection")

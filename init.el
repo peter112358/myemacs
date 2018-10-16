@@ -285,7 +285,33 @@
     (setq buffer-offer-save t)
     $buf))
 
+;; pomodoro notifier
+(defun notify-osx (title message)
+	(call-process "terminal-notifier"
+		nil 0 nil
+		"-group" "Emacs"
+		"-title" title
+		"-message" message))
+;;;add emoji supopport
+;;(add-hook 'after-init-hook #'global-emojify-mode)
 
+(add-hook 'org-pomodoro-started-hook
+	(lambda ()
+	(notify-osx "🍅🍅🍅" "Pomodoro is started.")))
+
+(add-hook 'org-pomodoro-finished-hook
+	(lambda ()
+	(notify-osx "🍅🍅🍅" "Time for a break.")))
+(add-hook 'org-pomodoro-break-finished-hook
+	(lambda ()
+        (notify-osx "🍅🍅🍅" "Ready for Another?")))
+(add-hook 'org-pomodoro-long-break-finished-hook
+	(lambda ()
+		(notify-osx "🍅🍅🍅" "Ready for Another?")))
+(add-hook 'org-pomodoro-killed-hook
+	(lambda ()
+		(notify-osx "🍅🍅🍅" "One does not simply kill a pomodoro!")))
+		 
 (use-package evil
   :ensure t
   :init
@@ -345,9 +371,10 @@
  '(custom-safe-themes
    (quote
     ("d2e9c7e31e574bf38f4b0fb927aaff20c1e5f92f72001102758005e53d77b8c9" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
+ '(org-agenda-files (quote ("~/sjtu.org")))
  '(package-selected-packages
    (quote
-    (xpm major-mode-icons all-the-icons-ivy treemacs-projectile treemacs-evil async-await ggtags calfw git-gutter org-brain solarized-theme hide-mode-line org-pomodoro dired-narrow dired-sidebar dired-collapse all-the-icons-dired 2048-game which-key web-mode use-package treemacs toc-org symon sublimity smartparens smart-tabs-mode prodigy popwin paredit pallet org-download org-cliplink org-bullets nyan-mode neotree multiple-cursors multi-term meghanada markdown-mode magit latex-preview-pane java-snippets indent-guide idle-highlight-mode htmlize helm go-snippets flycheck-cask expand-region exec-path-from-shell evil-leader evil-collection evil-anzu emmet-mode dumb-jump drag-stuff doom-themes doom-modeline dired-rainbow dashboard counsel company-emacs-eclim company-auctex better-defaults auctex-latexmk))))
+    (emojify xpm major-mode-icons all-the-icons-ivy treemacs-projectile treemacs-evil async-await ggtags calfw git-gutter org-brain solarized-theme hide-mode-line org-pomodoro dired-narrow dired-sidebar dired-collapse all-the-icons-dired 2048-game which-key web-mode use-package treemacs toc-org symon sublimity smartparens smart-tabs-mode prodigy popwin paredit pallet org-download org-cliplink org-bullets nyan-mode neotree multiple-cursors multi-term meghanada markdown-mode magit latex-preview-pane java-snippets indent-guide idle-highlight-mode htmlize helm go-snippets flycheck-cask expand-region exec-path-from-shell evil-leader evil-collection evil-anzu emmet-mode dumb-jump drag-stuff doom-themes doom-modeline dired-rainbow dashboard counsel company-emacs-eclim company-auctex better-defaults auctex-latexmk))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
