@@ -19,6 +19,14 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;;---------------------------- custom ------------------------------------------
+;;;org
+(setq org-todo-keywords '((sequence "TODO(t)" "DOING(i)" "|" "DONE(d@/!)" "ABORT(a/!)")))
+;;依赖关闭配置
+(setq org-enforce-todo-dependencies t)
+(setq org-src-fontify-natively t)
+;;;自动折行
+(setq truncate-lines nil)
+(setq org-default-notes-file "~/org/inbox.org")
 (setq inhibit-startup-screen t)
 (setq make-backup-files nil) ; stop creating backup~ files
 (setq auto-save-default nil) ; stop creating #autosave# files
@@ -368,6 +376,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-idle-delay 0.01)
+ ;;M PLUS Rounded 1c
+ '(org-table ((t (:foreground "#6c71c4" :family "M PLUS Rounded 1c"))))
  '(custom-safe-themes
    (quote
     ("d2e9c7e31e574bf38f4b0fb927aaff20c1e5f92f72001102758005e53d77b8c9" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
@@ -381,8 +391,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-table ((t (:foreground "#6c71c4" :family "Ubuntu Mono"))))
  )
 
+;;(set-default-font "Ubuntu Mono-14")
+;;(set-default-font "Rounded Mplus 1c-14")
 
 ;;server start
 (require 'server)
