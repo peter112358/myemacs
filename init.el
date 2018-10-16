@@ -53,6 +53,7 @@
   :config
   (load-theme 'doom-one t)
   (doom-themes-visual-bell-config)
+  (doom-themes-treemacs-config)
   (doom-themes-neotree-config)
   (doom-themes-org-config)
  )
@@ -65,6 +66,40 @@
 
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 (add-hook 'dired-mode-hook 'dired-collapse-mode)
+
+;;treemacs
+(use-package treemacs
+  :ensure t
+  :defer t
+  :config
+  (progn
+    (use-package treemacs-evil
+      :ensure t
+      :demand t)
+    (setq treemacs-follow-after-init          t
+          treemacs-width                      35
+          treemacs-indentation                2
+          treemacs-git-integration            t
+          treemacs-collapse-dirs              10
+          treemacs-silent-refresh             nil
+          treemacs-change-root-without-asking nil
+          treemacs-sorting                    'alphabetic-desc
+          treemacs-show-hidden-files          t
+          treemacs-never-persist              nil
+          treemacs-is-never-other-window      nil
+          treemacs-goto-tag-strategy          'refetch-index)
+
+    (treemacs-follow-mode t)
+    (treemacs-filewatch-mode t))
+  :bind
+  (:map global-map
+        ([f8]        . treemacs-toggle)))
+
+(use-package treemacs-projectile
+  :defer t
+  :ensure t
+  :config
+  (setq treemacs-header-function #'treemacs-projectile-create-header))
 
 (use-package calfw
   :ensure t)
@@ -289,6 +324,8 @@
     "bms" 'bookmark-set
     "aeh" 'toggle-company-english-helper
     "bml" 'bookmark-bmenu-list
+
+    "hf" 'find-function
     ))
 
 ;;---------------------------- keymap ------------------------------------------
@@ -310,7 +347,7 @@
     ("d2e9c7e31e574bf38f4b0fb927aaff20c1e5f92f72001102758005e53d77b8c9" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
  '(package-selected-packages
    (quote
-    (async-await ggtags calfw git-gutter org-brain solarized-theme hide-mode-line org-pomodoro dired-narrow dired-sidebar dired-collapse all-the-icons-dired 2048-game which-key web-mode use-package treemacs toc-org symon sublimity smartparens smart-tabs-mode prodigy popwin paredit pallet org-download org-cliplink org-bullets nyan-mode neotree multiple-cursors multi-term meghanada markdown-mode magit latex-preview-pane java-snippets indent-guide idle-highlight-mode htmlize helm go-snippets flycheck-cask expand-region exec-path-from-shell evil-leader evil-collection evil-anzu emmet-mode dumb-jump drag-stuff doom-themes doom-modeline dired-rainbow dashboard counsel company-emacs-eclim company-auctex better-defaults auctex-latexmk))))
+    (xpm major-mode-icons all-the-icons-ivy treemacs-projectile treemacs-evil async-await ggtags calfw git-gutter org-brain solarized-theme hide-mode-line org-pomodoro dired-narrow dired-sidebar dired-collapse all-the-icons-dired 2048-game which-key web-mode use-package treemacs toc-org symon sublimity smartparens smart-tabs-mode prodigy popwin paredit pallet org-download org-cliplink org-bullets nyan-mode neotree multiple-cursors multi-term meghanada markdown-mode magit latex-preview-pane java-snippets indent-guide idle-highlight-mode htmlize helm go-snippets flycheck-cask expand-region exec-path-from-shell evil-leader evil-collection evil-anzu emmet-mode dumb-jump drag-stuff doom-themes doom-modeline dired-rainbow dashboard counsel company-emacs-eclim company-auctex better-defaults auctex-latexmk))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -318,3 +355,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+;;server start
+(require 'server)
+(unless (server-running-p)
+  (server-start))
